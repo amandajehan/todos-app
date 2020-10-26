@@ -4,7 +4,7 @@ Returns a json data about a new Todo
 
 - ### URL:
 
-	`/todos/create`
+	`/todos`
 
 - ### Method:
 
@@ -65,7 +65,7 @@ Returns json data of all Todo
 
 - ### URL:
 
-	/todos
+	`/todos`
 
 - ### Method:
 
@@ -118,7 +118,7 @@ Retuns a json data of a specific Todo
 
 - ### URL:
 
-	`/todo/:id`
+	`/todos/:id`
 
 - ### Method:
 
@@ -166,7 +166,7 @@ Returns an updated json data (all fields) of a Todo
 
 - ### URL:
 
-	`/todo/:id/edit`
+	`/todos/:id`
 
 - ### Method:
 
@@ -232,7 +232,7 @@ Returns an updated json data (just `status` field) of a Todo
 
 - ### URL:
 
-	`/todo/:id/edit`
+	`/todos/:id`
 
 - ### Method:
 
@@ -291,7 +291,7 @@ Delete a json data of a specific Todo
 
 - ### URL:
 
-	`/todo/:id/delete`
+	`/todos/:id`
 
 - ### Method:
 
