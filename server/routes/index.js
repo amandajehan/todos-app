@@ -5,6 +5,6 @@ const userRouter = require("./user.js");
 
 router.get("/", HomeController.showHomePage)
 router.use("/todos", todoRouter)
-// router.use(userRouter)
+router.use(userRouter)
 
 module.exports = router;
