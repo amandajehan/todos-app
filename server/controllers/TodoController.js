@@ -7,7 +7,8 @@ class TodoController {
 			const todos = await Todo.findAll({
 				where: {
 					UserId: userId
-				}
+				},
+				order: [["status", "ASC"]]
 			});
 
 			res.status(200).json(todos);
@@ -81,7 +82,10 @@ class TodoController {
 			const { status } = req.body;
 			const updateTodo = await Todo.update({
 				status
-			}, { where: { id }, returning: true })
+			}, 
+			{ where: { id }, 
+			returning: true 
+		})
 
 			res.status(200).json(updateTodo[1][0]);
 

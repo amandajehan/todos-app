@@ -58,20 +58,20 @@ class UserController {
 		}
 	}
 
-	static googleLogin(req, res, next) {
-		let google_access_token = req.body;
-		const client = new OAuth2Client(process.env.CLIENT_ID);
-		client.verifyIdToken({
-			idToken: google_access_token,
-			audience: process.env.CLIENT_ID
-		})
-		.then(ticket => {
-			let payload = ticket.getPayload()
-		})
-		.catch(err => {
-			console.log(err)
-		})
-	}
+	// static googleLogin(req, res, next) {
+	// 	let google_access_token = req.body;
+	// 	const client = new OAuth2Client(process.env.CLIENT_ID);
+	// 	client.verifyIdToken({
+	// 		idToken: google_access_token,
+	// 		audience: process.env.CLIENT_ID
+	// 	})
+	// 	.then(ticket => {
+	// 		let payload = ticket.getPayload()
+	// 	})
+	// 	.catch(err => {
+	// 		console.log(err)
+	// 	})
+	// }
 }
 
 module.exports = UserController;

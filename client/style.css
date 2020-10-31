@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+
+body {
+	font-family: "Ubuntu";
+	background-color:#e8ffff;
+	padding: 0;
+	margin: 0;
+}
+
+.app-title {
+	display: absolute;
+	width: 100%;
+	font-size: 50px;
+}
+
+.main-img {
+	width: 450px;
+}
+
+/* REGISTER & LOGIN */
+#register-page, #content-page {
+	display: none;
+}
+
+#register-page, #login-page {
+	margin-top: 20px;
+}
+
+form {
+	margin-top: 30px;
+}
+
+.form-container {
+	font-size: 20px;
+	min-width: 370px;
+	height: 500px; 
+	background-color: #89beb3; 
+	border-radius: 20px;
+}
+
+h2 {
+	font-weight: 600;
+	text-align: center;
+	margin-top: -15px;
+}
+button {
+	cursor: pointer;
+}
+
+/* NAVBAR */
+
+#navbar {
+	background-color: #389393;
+	position: fixed;
+	display: flex;
+	justify-content: flex-end;
+	width: 100%;
+}
+
+ul {
+	display: flex;
+	justify-content: end;
+}
+
+#navbar li {
+	list-style: none;
+}
+
+#navbar a {
+	margin-top: 20px;
+	margin-right: 15px;
+}
+
+#btn-logout {
+	margin-right: 50px;
+}
+
+/* CONTENTS */
+#content-page {
+	display: flex;
+	width: 100%;
+	height: 100%;
+}
+
+#show-all-todos {
+	display: flex;
+	flex-wrap : wrap;
+	width: 100%;
+	height: 100%;
+	margin-bottom: 100px;
+}
+
+.todo-item {
+	background-color: #e7e7de;
+	min-width: 350px;
+	height: 45%;
+	margin-top: 100px;
+	margin-left: 120px;
+	padding: 20px;
+	border-radius: .40rem;
+	box-shadow: 20px 20px #555555;
+}
+
+.todo-title {
+	text-decoration: underline;
+	padding: 10px;
+	font-weight: 1000;
+}
+
+/* ADD & EDIT TO DO */
+#add-new-todo, #edit-todo {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	margin-top: 100px;
+}
+
+#add-form, #edit-form {
+	background-color: #389393;
+	padding: 30px;
+	min-width: 550px;
+	border-radius: .35rem;
+	color: #e8ffff;
+
+}
+
+#btn-yellow {
+	margin-left: 30%;
+	padding: 5px 60px;
+	font-size: 25px;
+	color: #486989;
+	background-color: #ffd57e;
+}
+
+.btn-todo {
+	font-size: 14px;
+	border-radius: 2rem;
+	margin-right: 20px;
+}

@@ -7,19 +7,21 @@
 	<!-- Google Client ID Meta -->
 	<meta name="google-signin-client_id" content="503073728481-o8vgdfleb12af776amrbqeu73v422sga.apps.googleusercontent.com">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+	<link rel="stylesheet" href="style.css">
 	<title>Fancy Todos</title>
 </head>
 
-<body style="background-color:#f6f7d7">
+<body>
 	<!-- REGISTER -->
-	<section id="register-page" class="container" style="display: none">
-		<div class="row justify-content-center align-items-center mt-4 " style="height: 90vh">
+	<section id="register-page" class="container">
+		<header class="app-title">Fancy Todo App</header>
+		<div class="row justify-content-center align-items-center">
 			<div class="col-5 mr-5">
-				<img src="images/login.svg" class="w-100">
+				<img class="main-img" src="images/login.svg">
 			</div>
-				<div class="col-4 shadow-lg ml-4 p-5" style="height: 70vh; background-color: #FFFFFF; border-radius: 20px">
+				<div class="form-container col-4 shadow-lg ml-4 p-5">
 					<h2>Create a New Account</h2>
-					<form style="margin-top: 4vh" onsubmit="register(event)">
+					<form onsubmit="register(event)">
 						<!-- REGISTER - E-mail -->
 						<div class="form-group">
 							<label for="register-email">E-mail:</label>
@@ -32,7 +34,7 @@
 						</div>
 						<div class="d-flex flex-column">
 							<button type="submit" class="btn btn-dark">Register</button>
-							<button onclick="toLogin()" class="btn btn-link mt-5" style="cursor: pointer">Already have an account?</button>
+							<button onclick="toLogin()" class="btn btn-link mt-5">Already have an account?</button>
 						</div>
 					</form>
 				</div>
@@ -40,13 +42,14 @@
 	</section>
 	<!-- LOGIN -->
 	<section id="login-page" class="container">
-		<div class="row justify-content-center align-items-center mt-4 " style="height: 90vh; ">
+		<header class="app-title">Fancy Todo App</header>
+		<div class="row justify-content-center align-items-center">
 			<div class="col-5 mr-5">
-				<img src="images/login.svg" class="w-100">
+				<img class="main-img" src="images/login.svg">
 			</div>
-				<div class="col-4 shadow-lg ml-4 p-5" style="height: 70vh; background-color: #FFFFFF; border-radius: 20px; ">
+				<div class="form-container col-4 shadow-lg ml-4 p-5">
 					<h2>Welcome Back!</h2>
-					<form style="margin-top: 4vh" onsubmit="login(event)">
+					<form id="form-login" onsubmit="login(event)">
 						<!-- LOGIN - E-mail -->
 						<div class="form-group">
 							<label for="login-email">E-mail:</label>
@@ -66,7 +69,7 @@
 					</form>
 					<!-- GOOGLE BUTTON -->
 					<div id="google-btns" class="d-flex justify-content-center">
-						<button onclick="toRegister()" class="btn btn-link mt-3" style="cursor: pointer; ">Not a user yet? Register here</button>
+						<button onclick="toRegister()" class="btn btn-link mt-3">Not a user yet? Register here</button>
 						<!-- <a href="#" onclick="signOut();" class="d-block mt-3">Sign out</a> -->
 					</div>
 				</div>				
@@ -74,19 +77,43 @@
 	</section>
 	<!-- CONTENT -->
 	<section id="content-page" style="display: none">
-		<div col-4 mt-5>
-			<nav class="d-flex">
-				<div>
-						<a class="btn btn-dark ">Add New Todo</a>
-						<a class="btn btn-dark">Show All Todos</a>
-												<a href="#" onclick="signOut();" class="d-block mt-3">Sign out</a>
-
+		<nav id="navbar">
+				<ul>
+					<li><a onclick="showAllTodos()" class="btn btn-light">Show All Todos</a></li>
+					<li><a onclick="toAddNew()" class="btn btn-light">Add New Todo</a></li>
+					<button id="btn-logout" href="#" onclick="signOut();" class="d-block mt-3">Sign Out</button>
+				</ul>
+		</nav>
+		<!-- SHOW ALL TODOS -->
+		<div id="show-all-todos"></div>
+		<!-- ADD NEW TO DO -->
+		<div id="add-new-todo" style="display: none">
+			<form id="add-form" onsubmit="addNewTodo(event)">
+				<h1 class="text-center">Add new Todo!</h1>
+				<div class="form-group">
+					<label for="title">Title:</label>
+					<input type="text" id="title" class="form-control"/>
 				</div>
-			</nav>
+				<div class="form-group">
+					<label for="description">Description:</label>
+					<input type="text" id="description" class="form-control"/>
+				</div>
+				<div class="form-group">
+					<label for="due_date">Due Date:</label>
+					<input type="date" id="due_date" class="form-control"/>
+				</div>
+				<button id="btn-yellow" type="submit" class="shadow btn btn-info">Add</button>
+			</form>
+		</div>
+		<div id="edit-todo">
 		</div>
 	</section>
+
+	<!-- SCRIPTS -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
 	<script src="index.js"></script>
 </body>
 
