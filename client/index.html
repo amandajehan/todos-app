@@ -78,8 +78,9 @@
 	<section id="content-page" style="display: none">
 		<nav id="navbar">
 				<ul>
-					<li><a onclick="showAllTodos()" class="btn btn-light">Show All Todos</a></li>
-					<li><a onclick="toAddNew()" class="btn btn-light">Add New Todo</a></li>
+					<li><a onclick="showAllTodos()" class="btn btn-warning">Show All Todos</a></li>
+					<li><a onclick="toAddNew()" class="btn btn-warning">Add New Todo</a></li>
+					<li><a onclick="toCreateProject()" class="btn btn-warning">Create Project</a></li>
 					<button id="btn-logout" href="#" onclick="signOut();" class="d-block mt-3">Sign Out</button>
 				</ul>
 		</nav>
@@ -108,7 +109,17 @@
 		<div id="edit-todo">
 		</div>
 	</section>
-
+	<!-- CREATE NEW PROJECT -->
+	<div id="create-new-project" class="container">
+		<form id="create-form" onsubmit="createNewProject(event)">
+			<h1 class="text-center">Create new Project!</h1>
+			<div class="form-group">
+				<label for="project_name">Project Name:</label>
+				<input type="text" id="project_name" class="form-control"/>
+			</div>
+			<button type="submit" class="shadow btn btn-primary">Create</button>
+		</form>
+	</div>
 	<!-- SCRIPTS -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://apis.google.com/js/platform.js" async defer></script>

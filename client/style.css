@@ -55,6 +55,7 @@ button {
 	display: flex;
 	justify-content: flex-end;
 	width: 100%;
+	padding-bottom: 8px;
 }
 
 ul {
@@ -136,4 +137,10 @@ ul {
 	font-size: 14px;
 	border-radius: 2rem;
 	margin-right: 20px;
+}
+
+#create-new-project {
+	display: none;
+	margin-top: 150px;
+	width: 40%;
 }

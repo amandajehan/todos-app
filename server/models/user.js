@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       User.hasMany(models.Todo, { foreignKey: "UserId" })
+      User.belongsToMany(models.Project, {
+        through: models.ProjectUser,
+        foreignKey: "UserId"
+      })
     }
   };
   User.init({

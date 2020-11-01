@@ -247,7 +247,7 @@ Returns an updated json data (all fields) of a Todo
 
 	Code: 500 INTERNAL SERVER ERROR
 
-	Content: `{ error: "Problem with server" }`
+	Content: `{ error: "Internal Server Error" }`
 
 - ### Sample Call:
 
@@ -601,5 +601,58 @@ Returns a string of random activity used as `title` 's field value from BoredAPI
 $.ajax({
 		method: "GET",
 		url: SERVER + "/activity"
+	})
+```
+# Create New Project
+
+Returns json data of new project
+
+- ### URL:
+
+	`/project`
+
+- ### Method:
+
+	`POST`
+
+- ### URL Params:
+
+	None
+
+- ### Data Params:
+
+	None
+
+- ### Success Response:
+
+	Code: 201 CREATED
+
+	Content: 
+	```
+	json
+	{
+		id: 1,
+		project_name: "Group Project"
+	}
+	```
+
+- ### Error Response:
+
+	Code: 500 INTERNAL SERVER ERROR
+
+	Content: `{ error: "Internal Server Error" }`
+
+- ### Sample Call:
+
+```
+	$.ajax({
+		method: "POST",
+		url: SERVER + `/project`,
+		headers: {
+			token
+		},
+		data: {
+			project_name
+		}
 	})
 ```

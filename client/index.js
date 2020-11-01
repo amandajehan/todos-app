@@ -257,12 +257,12 @@ function randomActivity() {
 		method: "GET",
 		url: SERVER + "/activity"
 	})
-	.done(activity => {
-		$("#title").val(activity)
-	})
-	.fail(err => {
-		console.log(err)
-	})
+		.done(activity => {
+			$("#title").val(activity)
+		})
+		.fail(err => {
+			console.log(err)
+		})
 }
 
 // EDIT TO DO
@@ -392,4 +392,40 @@ function deleteTodo(id) {
 		.fail(err => {
 			console.log(err)
 		})
+}
+
+// CREATE FORM
+function toCreateProject() {
+	$("#show-all-todos").hide()
+	$("#create-new-project").show()
+}
+
+// CREATE NEW PROJECT
+function createNewProject(event) {
+	event.preventDefault()
+	const token = localStorage.getItem("access_token");
+	
+	const project_name = $("#project_name").val()
+
+	$.ajax({
+		method: "POST",
+		url: SERVER + `/project`,
+		headers: {
+			token
+		},
+		data: {
+			project_name
+		}
+	})
+		.done(response => {
+			console.log("New project is created!")
+			$("#create-form").trigger("reset")
+			$("#create-new-project").hide()
+			showAllTodos()
+			$("#show-all-todos").show()
+		})
+		.fail(err => {
+			console.log(err)
+		})
+
 }

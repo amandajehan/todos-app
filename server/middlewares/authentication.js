@@ -7,7 +7,7 @@ async function authentication(req, res, next) {
 	try {
 		if (!token) {
 			throw { name: "AuthenticationFailed" }
-
+			
 		} else {
 			const decoded = verifyToken(token);
 
