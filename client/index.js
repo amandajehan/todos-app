@@ -54,12 +54,9 @@ function register(event) {
 
 // GOOGLE SIGN IN
 function onSignIn(googleUser) {
-	// var profile = googleUser.getBasicProfile();
-	// console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-	// console.log('Name: ' + profile.getName());
-	// console.log('Image URL: ' + profile.getImageUrl());
-	// console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 	var google_access_token = googleUser.getAuthResponse().id_token;
+	const SERVER = "http://localhost:3000";
+
 	$.ajax({
 		method: "POST",
 		url: SERVER + "/googleLogin",
@@ -68,7 +65,12 @@ function onSignIn(googleUser) {
 		}
 	})
 		.done(response => {
-			console.log(response)
+			console.log(response.access_token)
+			localStorage.setItem("access_token", response.access_token)
+			localStorage.setItem("email", response.email)
+
+			$("#content-page").show()
+			$("#login-page").hide()
 		})
 		.fail(err => {
 			console.log(err)
@@ -110,7 +112,6 @@ function login(event) {
 			const token = response.access_token;
 			localStorage.setItem("access_token", token)
 			console.log("Login success")
-
 
 			//when successfully logged in:
 			$("#login-page").hide()
@@ -203,13 +204,13 @@ function doneTodo(id) {
 			status
 		}
 	})
-	.done(response => {
-		console.log("Todo's status is updated!")
-		showAllTodos();
-	})
-	.fail(err => {
-		console.log(err)
-	})
+		.done(response => {
+			console.log("Todo's status is updated!")
+			showAllTodos();
+		})
+		.fail(err => {
+			console.log(err)
+		})
 }
 
 //ADD NEW TODO
@@ -239,12 +240,25 @@ function addNewTodo(event) {
 			due_date
 		}
 	})
-	.done(response => {
-		console.log("Create new Todo is succeed")
-		$("#add-new").trigger("reset")
-		$("#add-new-todo").hide()
-		showAllTodos()
-		$("#show-all-todos").show()
+		.done(response => {
+			console.log("Create new Todo is succeed")
+			$("#add-new").trigger("reset")
+			$("#add-new-todo").hide()
+			showAllTodos()
+			$("#show-all-todos").show()
+		})
+		.fail(err => {
+			console.log(err)
+		})
+}
+
+function randomActivity() {
+	$.ajax({
+		method: "GET",
+		url: SERVER + "/activity"
+	})
+	.done(activity => {
+		$("#title").val(activity)
 	})
 	.fail(err => {
 		console.log(err)
@@ -256,7 +270,7 @@ function toEdit(id) {
 	editForm(id);
 	$("#edit-todo").show()
 	$("#show-all-todos").hide()
-	
+
 }
 
 function editForm(id) {
@@ -270,10 +284,10 @@ function editForm(id) {
 			token
 		}
 	})
-	.done(data => {
-		$("#edit-todo").empty();
-		if (data.status === false) {
-			$("#edit-todo").append(`
+		.done(data => {
+			$("#edit-todo").empty();
+			if (data.status === false) {
+				$("#edit-todo").append(`
 			<form id="edit-form" onsubmit="editTodo(event, ${id})">
 			<h1 class="text-center">Edit Your Todo</h1>
 					<div class="form-group">
@@ -298,8 +312,8 @@ function editForm(id) {
 					<button id="btn-yellow" type="submit" class="shadow btn btn-info">Edit</button>
 			</form>
 			`)
-		} else {
-			$("#edit-todo").append(`
+			} else {
+				$("#edit-todo").append(`
 			<form id="edit-form" onsubmit="editTodo(event, ${id})">
 			<h1 class="text-center">Edit Your Todo</h1>
 					<div class="form-group">
@@ -324,8 +338,8 @@ function editForm(id) {
 					<button id="btn-yellow" type="submit" class="shadow btn btn-info">Edit</button>
 			</form>
 			`)
-		}
-	})
+			}
+		})
 }
 
 function editTodo(event, id) {
@@ -350,15 +364,15 @@ function editTodo(event, id) {
 			due_date
 		}
 	})
-	.done(data => {
-		console.log("Edit Todo is successful!")
-		$("#edit-todo").hide()
-		showAllTodos()
-		$("#show-all-todos").show()
-	})
-	.fail(err => {
-		console.log(err)
-	})
+		.done(data => {
+			console.log("Edit Todo is successful!")
+			$("#edit-todo").hide()
+			showAllTodos()
+			$("#show-all-todos").show()
+		})
+		.fail(err => {
+			console.log(err)
+		})
 }
 
 function deleteTodo(id) {
@@ -371,11 +385,11 @@ function deleteTodo(id) {
 			token
 		}
 	})
-	.done(response => {
-		console.log("Delete a Todo is successful")
-		showAllTodos();
-	})
-	.fail(err => {
-		console.log(err)
-	})
+		.done(response => {
+			console.log("Delete a Todo is successful")
+			showAllTodos();
+		})
+		.fail(err => {
+			console.log(err)
+		})
 }

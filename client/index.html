@@ -63,14 +63,13 @@
 						<div class="d-flex flex-column">
 							<button type="submit" class="shadow btn btn-dark">Login</button>
 							<p class="text-center mt-3">Or</p>
+						<!-- GOOGLE LOGIN BUTTON -->
 							<div class="row g-signin2 justify-content-center" data-width="285" data-height="35" data-longtitle="true" data-onsuccess="onSignIn"></div>
 						</div>
 						
 					</form>
-					<!-- GOOGLE BUTTON -->
 					<div id="google-btns" class="d-flex justify-content-center">
 						<button onclick="toRegister()" class="btn btn-link mt-3">Not a user yet? Register here</button>
-						<!-- <a href="#" onclick="signOut();" class="d-block mt-3">Sign out</a> -->
 					</div>
 				</div>				
 		</div>
@@ -102,6 +101,7 @@
 					<label for="due_date">Due Date:</label>
 					<input type="date" id="due_date" class="form-control"/>
 				</div>
+				<button onclick="randomActivity()" type="submit" class="shadow btn btn-info">Random Activity</button>
 				<button id="btn-yellow" type="submit" class="shadow btn btn-info">Add</button>
 			</form>
 		</div>

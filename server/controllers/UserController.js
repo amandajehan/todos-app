@@ -58,20 +58,55 @@ class UserController {
 		}
 	}
 
-	// static googleLogin(req, res, next) {
-	// 	let google_access_token = req.body;
-	// 	const client = new OAuth2Client(process.env.CLIENT_ID);
-	// 	client.verifyIdToken({
-	// 		idToken: google_access_token,
-	// 		audience: process.env.CLIENT_ID
-	// 	})
-	// 	.then(ticket => {
-	// 		let payload = ticket.getPayload()
-	// 	})
-	// 	.catch(err => {
-	// 		console.log(err)
-	// 	})
-	// }
+	static googleLogin(req, res, next) {
+		let { google_access_token } = req.body;
+		const client = new OAuth2Client(process.env.CLIENT_ID);
+		let email = null;
+
+		client.verifyIdToken({
+			idToken: google_access_token,
+			audience: process.env.CLIENT_ID
+		})
+		.then(data => {
+			let payload = data.getPayload()
+			console.log(payload)
+			email = payload.email;
+
+			return User.findOne({
+				where: {
+					email: payload.email
+				}
+			})
+		})
+		.then(user => {
+			if (user) {
+				return user
+
+			} else {
+				let userData = {
+					email,
+					password: "asdqwerty"
+				}
+
+				return User.create(userData)
+			}
+		})
+		.then(data => {
+			let access_token = signToken({
+				id: data.id,
+				email: data.email
+			})
+
+			return res.status(200).json({
+				access_token,
+				email
+			})
+		})
+		.catch(err => {
+			next(err)
+		})
+	}
+
 }
 
 module.exports = UserController;
