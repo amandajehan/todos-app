@@ -350,7 +350,7 @@ function editTodo(event, id) {
 	const description = $("#edit-description").val()
 	const status = $("#edit-status").val()
 	const due_date = $("#edit-due_date").val()
-	console.log(status)
+
 	$.ajax({
 		method: "PUT",
 		url: SERVER + `/todos/${id}`,

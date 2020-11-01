@@ -10,9 +10,9 @@ module.exports = function (err, req, res, next) {
 			}).join(", ");
 
 			break;
-		case "InvalidUserPassword":
+		case "InvalidEmailPassword":
 			status = 400;
-			error = "Invalid username / password";
+			error = "Invalid email / password";
 
 			break;
 		case "AuthenticationFailed":

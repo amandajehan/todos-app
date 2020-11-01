@@ -1,4 +1,4 @@
-# Create Todo
+# Create New Todo
 
 Returns a json data about a new Todo
 
@@ -20,24 +20,25 @@ Returns a json data about a new Todo
 
 	`description = [string]`
 
-	`status = [string]`
+	`status = [boolean]`
 
-	`due-date = [date]`
+	`due_date = [date]`
 
 - ### Success Response:
 
 	Code: 201 CREATED
 
 	Content :
+	
 
-	```json
+	```
 	json
 	{ id : 1, 
 	 title : 
 	 "Study REST API", 
 	 description : "Study for Live Code", 
-	 status : "in-progress", 
-	 due_date : "2020-10-20 19:45:07" 
+	 status : false, 
+	 due_date : "2020-11-25T00:00:00.000Z" 
 	}
 	```
 
@@ -45,23 +46,33 @@ Returns a json data about a new Todo
 
 	Code: 400 BAD REQUEST
 
-	Content: `{ error: "Inputs aren't valid" }`
+	Content: `{ error: "Title/Description/Due date is required" }`
 
 	OR
 
 	Code: 500 INTERNAL SERVER ERROR
 
-	Content: `{ error: "Problem with server" }`
+	Content: `{ error: "Internal Server Error" }`
 
 - ### Sample Call:
 
-	`<calling endpoint in runnable format>`
-
-- ### Notes:
+	```$.ajax({
+		method: "POST",
+		url: SERVER + "/todos",
+		headers: {
+			token
+		},
+		data: {
+			title,
+			description,
+			due_date
+		}
+	})
+	```
 
 # Show All Todo
 
-Returns json data of all Todo
+Returns json data of all existing Todos
 
 - ### URL:
 
@@ -81,7 +92,7 @@ Returns json data of all Todo
 
 - ### Success Response:
 
-	Code: 200
+	Code: 200 OK
 
 	Content:
 
@@ -91,14 +102,14 @@ Returns json data of all Todo
 	    { id : 1, 
 	     title : "Study REST API", 
 	     description : "Study for Live Code", 
-	     status : "in-progress", 
-	     due_date : "2020-10-20 19:45:07" 
+	     status : false, 
+	     due_date : "2020-11-02T00:00:00.000Z" 
 	    }, 
 	    { id : 2, 
 	     title : "House chores", 
 	     description : "Clean my room", 
-	     status : "in-progress", 
-	     due_date : "2020-10-24 07:00:00" } 
+	     status : false, 
+	     due_date : "2020-10-31T12:07:58.032Z" } 
 	]
 	```
 
@@ -106,15 +117,23 @@ Returns json data of all Todo
 
 	Code: 500 INTERNAL SERVER ERROR
 
-	Content: `{ error: "Problem with server" }`
+	Content: `{ error: "Internal Server Error" }`
 
 - ### Sample Call:
 
-- ### Notes:
+```
+$.ajax({
+		method: "GET",
+		url: SERVER + "/todos",
+		headers: {
+			token
+		}
+	})
+```
 
 # Show A Todo
 
-Retuns a json data of a specific Todo
+Retuns a json data of a specific Todo by its id
 
 - ### URL:
 
@@ -136,17 +155,16 @@ Retuns a json data of a specific Todo
 
 - ### Success Response:
 
-	Code: 200
+	Code: 200 OK
 
 	Content:
 
 	```json
-	json
 	{ id : 2, 
 	 title : "House chores", 
 	 description : "Clean my room", 
-	 status : "in-progress", 
-	 due_date : "2020-10-24 07:00:00" 
+	 status : true, 
+	 due_date : "2020-11-01T02:46:32.052Z" 
 	}
 	```
 
@@ -154,11 +172,20 @@ Retuns a json data of a specific Todo
 
 	Code: 404 NOT FOUND
 
-	Content: `{ error: "Todo doesn't exist" }`
+	Content: `{ error: "Not Found" }`
 
 - ### Sample Call:
 
-- ### Notes:
+```
+$.ajax({
+	method: "GET",
+	url: SERVER + "/todos/${id}",
+	headers: {
+		token
+	}
+})
+```
+
 
 # Update Todo (PUT)
 
@@ -184,13 +211,13 @@ Returns an updated json data (all fields) of a Todo
 
 	`description = [string]`
 
-	`status = [string]`
+	`status = [boolean]`
 
 	`due-date = [date]`
 
 - ### Success Response:
 
-	Code: 200
+	Code: 200 OK
 
 	Content:
 
@@ -199,8 +226,8 @@ Returns an updated json data (all fields) of a Todo
 	{ id : 2, 
 	 title : "Study Postman", 
 	 description : "Preparation before the lecture", 
-	 status : "in-progress", 
-	 due_date : "2020-10-24 07:00:00" 
+	 status : false, 
+	 due_date : "2020-10-31T18:02:06.709Z" 
 	}
 	```
 
@@ -208,13 +235,13 @@ Returns an updated json data (all fields) of a Todo
 
 	Code: 400 BAD REQUEST
 
-	Content: `{ error: "Inputs aren't valid" }`
+	Content: `{ error: "Title/Description/Due date is required" }`
 
 	OR
 
 	Code: 404 NOT FOUND
 
-	Content: `{ error: "Todo doesn't exist" }`
+	Content: `{ error: "Not Found" }`
 
 	OR
 
@@ -224,7 +251,21 @@ Returns an updated json data (all fields) of a Todo
 
 - ### Sample Call:
 
-- ### Notes:
+```
+$.ajax({
+		method: "PUT",
+		url: SERVER + `/todos/${id}`,
+		headers: {
+			token
+		},
+		data: {
+			title,
+			description,
+			status,
+			due_date
+		}
+	})
+```
 
 # Update Todo (Patch)
 
@@ -250,7 +291,7 @@ Returns an updated json data (just `status` field) of a Todo
 
 - ### Success Response:
 
-	Code: 200
+	Code: 200 OK
 
 	Content:
 
@@ -259,7 +300,7 @@ Returns an updated json data (just `status` field) of a Todo
 	 title : "House chores", 
 	 description : "Clean my room", 
 	 status : "done", 
-	 due_date : "2020-10-24 07:00:00" 
+	 due_date : "2020-10-31T18:02:06.709Z" 
 	}
 	```
 
@@ -267,23 +308,34 @@ Returns an updated json data (just `status` field) of a Todo
 
 	Code: 400 BAD REQUEST
 
-	Content: `{ error: "Inputs aren't valid" }`
+	Content: `{ error: "Title/Description/Due date is required" }`
 
 	OR
 
 	Code: 404 NOT FOUND
 
-	Content: `{ error: "Todo doesn't exist" }`
+	Content: `{ error: "Not found" }`
 
 	OR
 
 	Code: 500 INTERNAL SERVER ERROR
 
-	Content: `{ error: "Problem with server" }`
+	Content: `{ error: "Internal Server Error" }`
 
 - ### Sample Call:
 
-- ### Notes:
+```
+$.ajax({
+		method: "PATCH",
+		url: SERVER + `/todos/${id}`,
+		headers: {
+			token
+		},
+		data: {
+			status
+		}
+	})
+```
 
 # Delete Todo Data
 
@@ -309,7 +361,7 @@ Delete a json data of a specific Todo
 
 - ### Success Response:
 
-	Code: 200
+	Code: 200 OK
 
 	Content: `message: "Todo deleted successfully"`
 
@@ -317,14 +369,237 @@ Delete a json data of a specific Todo
 
 	Code: 404 NOT FOUND
 
-	Content: `{ error: "Todo doesn't exist" }`
+	Content: `{ error: "Not Found" }`
 
 	OR
 
 	Code: 500 INTERNAL SERVER ERROR
 
-	Content: `{ error: "Problem with server" }`
+	Content: `{ error: "Internal Server Error" }`
 
 - ### Sample Call:
 
-- ### Notes:
+```
+$.ajax({
+		method: "DELETE",
+		url: SERVER + `/todos/${id}`,
+		headers: {
+			token
+		}
+	})
+```
+
+# Login User
+
+Returns an access token to let user logging in
+
+- ### URL:
+
+	`/login`
+
+- ### Method:
+
+	`POST`
+
+- ### URL Params:
+
+	None
+
+- ### Data Params:
+
+	None
+
+- ### Success Response:
+
+	Code: 200 OK
+
+	Content: 
+	```json 
+		{
+		access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiZW1haWwiOiJhbWFuZGFqZWhhbkBnbWFpbC5jb20iLCJpYXQiOjE2MDQyMDc4Njh9"
+		}
+		```
+
+- ### Error Response:
+
+	Code: 400 BAD REQUEST 
+
+	Content: `{ error: "Invalid email / password" }`
+
+	OR
+
+	Code: 500 INTERNAL SERVER ERROR
+
+	Content: `{ error: "Internal Server Error" }`
+
+- ### Sample Call:
+
+```
+$.ajax({
+		method: "POST",
+		url: SERVER + "/login",
+		data: {
+			email,
+			password
+		}
+	})
+```
+
+# Register User
+
+Returns a json data containing new user data
+
+- ### URL:
+
+	`/register`
+
+- ### Method:
+
+	`POST`
+
+- ### URL Params:
+
+	None
+
+- ### Data Params:
+
+	None
+
+- ### Success Response:
+
+	Code: 201 CREATED
+
+	Content: 
+	```json 
+		{
+		id: 1,
+		email: "amandajehan@gmail.com"
+		}
+	```
+
+- ### Error Response:
+
+	Code: 400 BAD REQUEST 
+
+	Content: `{ error: "Email/Password is required" }`
+
+	Content: `{ error: "Password length is minimum 8" }`
+
+	OR
+
+	Code: 500 INTERNAL SERVER ERROR
+
+	Content: `{ error: "Internal Server Error" }`
+
+- ### Sample Call:
+
+```
+$.ajax({
+		method: "POST",
+		url: SERVER + "/login",
+		data: {
+			email,
+			password
+		}
+	})
+```
+
+# Sign In / Login Using Google OAuth
+
+Returns a json data containing access token and user's registered email
+
+- ### URL:
+
+	`/googleLogin`
+
+- ### Method:
+
+	`POST`
+
+- ### URL Params:
+
+	None
+
+- ### Data Params:
+
+	None
+
+- ### Success Response:
+
+	Code: 201 CREATED
+
+	Content: 
+	```json 
+		{
+		access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiZW1haWwiOiJhbWFuZGFqZWhhbkBnbWFpbC5jb20iLCJpYXQiOjE2MDQyMDc4Njh9",
+		email: "amandajehan@gmail.com"
+		}
+	```
+
+- ### Error Response:
+
+	Code: 400 BAD REQUEST 
+
+	Content: `{ error: "Email/Password is required" }`
+
+	OR
+
+	Code: 500 INTERNAL SERVER ERROR
+
+	Content: `{ error: "Internal Server Error" }`
+
+- ### Sample Call:
+
+```
+$.ajax({
+		method: "POST",
+		url: SERVER + "/googleLogin",
+		data: {
+			google_access_token
+		}
+	})
+```
+
+# Get Random Activity
+
+Returns a string of random activity used as `title` 's field value from BoredAPI (3rd Party API)
+
+- ### URL:
+
+	`/activity`
+
+- ### Method:
+
+	`GET`
+
+- ### URL Params:
+
+	None
+
+- ### Data Params:
+
+	None
+
+- ### Success Response:
+
+	Code: 200 OK
+
+	Content: 
+	```
+	"Organize a cluttered drawer"
+	```
+
+- ### Error Response:
+
+	Code: 500 INTERNAL SERVER ERROR
+
+	Content: `{ error: "Internal Server Error" }`
+
+- ### Sample Call:
+
+```
+$.ajax({
+		method: "GET",
+		url: SERVER + "/activity"
+	})
+```
