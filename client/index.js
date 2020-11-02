@@ -1,5 +1,6 @@
 const SERVER = "http://localhost:3000";
 
+// DOCUMENT READY
 $(document).ready(function () {
 	const token = localStorage.getItem("access_token")
 	if (token) {
