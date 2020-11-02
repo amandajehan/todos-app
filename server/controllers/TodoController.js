@@ -101,7 +101,7 @@ class TodoController {
 				where: { id }, returning: true
 			})
 
-			res.status(200).json({msg: "todo success to delete"});
+			res.status(200).json({msg: "Todo success to delete"});
 			
 		} catch (err) {
 			next(err);

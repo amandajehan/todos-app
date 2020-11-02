@@ -9,14 +9,14 @@ async function authorization(req, res, next) {
 			throw { name: "NotFound" }
 
 		} else if (todo.UserId === req.loggedInUser.id) {
-			next();
+			next(); 
 
 		} else {
 			throw { name: "NotAuthorized" }
 		}
 
 	} catch(err) {
-		next(err);
+		next(err); 
 	}
 }
 

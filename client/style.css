@@ -53,14 +53,23 @@ button {
 	background-color: #389393;
 	position: fixed;
 	display: flex;
-	justify-content: flex-end;
+	justify-content: space-between;
 	width: 100%;
 	padding-bottom: 8px;
 }
 
+#header-name {
+	font-size: 45px;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-left: 50px;
+	margin-top: 10px;
+	border-radius: .35rem;
+	background-color: #ffd57e;
+}
+
 ul {
 	display: flex;
-	justify-content: end;
 }
 
 #navbar li {
@@ -93,10 +102,10 @@ ul {
 
 .todo-item {
 	background-color: #e7e7de;
-	min-width: 350px;
+	min-width: 360px;
 	height: 45%;
 	margin-top: 100px;
-	margin-left: 120px;
+	margin-left: 80px;
 	padding: 20px;
 	border-radius: .40rem;
 	box-shadow: 20px 20px #555555;
@@ -104,6 +113,7 @@ ul {
 
 .todo-title {
 	text-decoration: underline;
+	width: 360px;
 	padding: 10px;
 	font-weight: 1000;
 }
@@ -126,7 +136,7 @@ ul {
 }
 
 #btn-yellow {
-	margin-left: 30%;
+	margin-left: 36%;
 	padding: 5px 60px;
 	font-size: 25px;
 	color: #486989;

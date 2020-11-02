@@ -65,7 +65,6 @@ function onSignIn(googleUser) {
 		}
 	})
 		.done(response => {
-			console.log(response.access_token)
 			localStorage.setItem("access_token", response.access_token)
 			localStorage.setItem("email", response.email)
 
@@ -77,7 +76,7 @@ function onSignIn(googleUser) {
 		})
 }
 
-//GOOGLE SIGN OUT
+//SIGN OUT / LOG OUT
 function signOut() {
 	var auth2 = gapi.auth2.getAuthInstance();
 	auth2.signOut().then(function () {
@@ -122,12 +121,6 @@ function login(event) {
 		.fail(err => {
 			console.log(err)
 		})
-}
-
-// LOGOUT
-function logout() {
-	$("#login-page").show()
-	$("#content-page").hide()
 }
 
 // SHOW ALL TODOS
@@ -189,33 +182,10 @@ function showAllTodos() {
 		})
 }
 
-//DONE TO DO, CHANGE ITS STATUS TO TRUE (DONE)
-function doneTodo(id) {
-	const token = localStorage.getItem("access_token");
-	const status = true;
-
-	$.ajax({
-		method: "PATCH",
-		url: SERVER + `/todos/${id}`,
-		headers: {
-			token
-		},
-		data: {
-			status
-		}
-	})
-		.done(response => {
-			console.log("Todo's status is updated!")
-			showAllTodos();
-		})
-		.fail(err => {
-			console.log(err)
-		})
-}
-
 //ADD NEW TODO
 function toAddNew() {
 	$("#show-all-todos").hide()
+	$("#add-form").trigger("reset")
 	$("#add-new-todo").show()
 	$("#edit-todo").hide()
 }
@@ -242,7 +212,7 @@ function addNewTodo(event) {
 	})
 		.done(response => {
 			console.log("Create new Todo is succeed")
-			$("#add-new").trigger("reset")
+			$("#add-form").trigger("reset")
 			$("#add-new-todo").hide()
 			showAllTodos()
 			$("#show-all-todos").show()
@@ -252,20 +222,7 @@ function addNewTodo(event) {
 		})
 }
 
-function randomActivity() {
-	$.ajax({
-		method: "GET",
-		url: SERVER + "/activity"
-	})
-		.done(activity => {
-			$("#title").val(activity)
-		})
-		.fail(err => {
-			console.log(err)
-		})
-}
-
-// EDIT TO DO
+// TO EDIT TODO FORM
 function toEdit(id) {
 	editForm(id);
 	$("#edit-todo").show()
@@ -273,6 +230,7 @@ function toEdit(id) {
 
 }
 
+//EDIT TODO FORM
 function editForm(id) {
 	const token = localStorage.getItem("access_token");
 	$("#add-new-todo").hide()
@@ -342,6 +300,7 @@ function editForm(id) {
 		})
 }
 
+//EDIT TODO (PUT)
 function editTodo(event, id) {
 	event.preventDefault()
 	const token = localStorage.getItem("access_token");
@@ -375,6 +334,31 @@ function editTodo(event, id) {
 		})
 }
 
+//DONE TO DO, CHANGE ITS STATUS TO TRUE OR DONE (PATCH)
+function doneTodo(id) {
+	const token = localStorage.getItem("access_token");
+	const status = true;
+
+	$.ajax({
+		method: "PATCH",
+		url: SERVER + `/todos/${id}`,
+		headers: {
+			token
+		},
+		data: {
+			status
+		}
+	})
+		.done(response => {
+			console.log("Todo's status is updated!")
+			showAllTodos();
+		})
+		.fail(err => {
+			console.log(err)
+		})
+}
+
+//DELETE TODO
 function deleteTodo(id) {
 	const token = localStorage.getItem("access_token");
 
@@ -427,5 +411,18 @@ function createNewProject(event) {
 		.fail(err => {
 			console.log(err)
 		})
+}
 
+//3rd API - BoredAPI
+function randomActivity() {
+	$.ajax({
+		method: "GET",
+		url: SERVER + "/activity"
+	})
+		.done(activity => {
+			$("#title").val(activity)
+		})
+		.fail(err => {
+			console.log(err)
+		})
 }

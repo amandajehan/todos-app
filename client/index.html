@@ -42,7 +42,7 @@
 	</section>
 	<!-- LOGIN -->
 	<section id="login-page" class="container">
-		<header class="app-title">Fancy Todo App</header>
+		<header class="app-title">Manje Todos App</header>
 		<div class="row justify-content-center align-items-center">
 			<div class="col-5 mr-5">
 				<img class="main-img" src="images/login.svg">
@@ -77,10 +77,10 @@
 	<!-- CONTENT -->
 	<section id="content-page" style="display: none">
 		<nav id="navbar">
+			<header id="header-name" class="shadow">Manje Todos App</header>
 				<ul>
 					<li><a onclick="showAllTodos()" class="btn btn-warning">Show All Todos</a></li>
 					<li><a onclick="toAddNew()" class="btn btn-warning">Add New Todo</a></li>
-					<li><a onclick="toCreateProject()" class="btn btn-warning">Create Project</a></li>
 					<button id="btn-logout" href="#" onclick="signOut();" class="d-block mt-3">Sign Out</button>
 				</ul>
 		</nav>
@@ -102,24 +102,13 @@
 					<label for="due_date">Due Date:</label>
 					<input type="date" id="due_date" class="form-control"/>
 				</div>
-				<button onclick="randomActivity()" type="submit" class="shadow btn btn-info">Random Activity</button>
+				<div onclick="randomActivity()" class="shadow btn btn-info">Random Activity</div>
 				<button id="btn-yellow" type="submit" class="shadow btn btn-info">Add</button>
 			</form>
 		</div>
 		<div id="edit-todo">
 		</div>
 	</section>
-	<!-- CREATE NEW PROJECT -->
-	<div id="create-new-project" class="container">
-		<form id="create-form" onsubmit="createNewProject(event)">
-			<h1 class="text-center">Create new Project!</h1>
-			<div class="form-group">
-				<label for="project_name">Project Name:</label>
-				<input type="text" id="project_name" class="form-control"/>
-			</div>
-			<button type="submit" class="shadow btn btn-primary">Create</button>
-		</form>
-	</div>
 	<!-- SCRIPTS -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
